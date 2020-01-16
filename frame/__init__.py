@@ -5,6 +5,7 @@ import query
 import json
 import parse_response
 import whois_query 
+import ssl_cert
 
 #Procedure to extract all the whois information through the whois and dig linux command
 #
@@ -25,7 +26,7 @@ class main():
         urlw.find_domain()
         wh = whois_query.Whois()
         data = wh.whois(dom = urlw.get_domain())
-        certificate = wh.ssl(urlw.get_url())
+        certificate = ssl_cert.ssl_certificate((urlw.get_url()))
         #print(certificate)
         
         dicc1 = parse_response.jsonparser(data=data['w'],dict={},keyword='Domain Whois Record')
