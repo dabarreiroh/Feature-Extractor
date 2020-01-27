@@ -15,6 +15,9 @@ from parse_response import jsonparser
 # Retrive a Json with information gathered
 
 class Whois():
+    """
+    This Class has the procedure methods to find the whois information related to a domain name if it's avaiable
+    """
 
     def __init__(self):
         pass
@@ -27,6 +30,9 @@ class Whois():
     #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     def ssl(self,url):
+        """
+        This method extract the ssl certificated related to a domain name or subdomain name.
+        """
 
         if url != '' or url != None:
 
@@ -45,6 +51,18 @@ class Whois():
     #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
        
     def whois(self,dom):
+        """
+        Whois method requires as input the domain name, without folders or "http" or "https" protocol:
+
+        This method return if possible:
+        *Domain whois record
+        *Domain whois record registrar infomation
+        *Network whois record
+        *Address lookup
+
+        Not all the information could not be available, it'll depend on the current domain status
+
+        """
         
         #whois = parse_url.Parser_url(url)
         #whois.find_domain()

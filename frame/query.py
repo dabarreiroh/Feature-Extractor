@@ -6,6 +6,11 @@ import io
 #file to execute commands and retrieve its response
 
 def command_query(command='',TimeOut=4):
+    """
+    command_query() method parsed and execute a command into the system and returns the information obtained.
+    This method need two arguments, the command the be executed and Timeout that is the limit time to wait a response
+    from the system. The TimeOut argument is set to 4 seconds by default. 
+    """
 
     lis = shlex.split(command)
 

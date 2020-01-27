@@ -1,3 +1,6 @@
+"""
+Module to manage files  
+"""
 #/////////////////////////////////////////////////////////////////
 #Group of fuctions to remove and save queries response in an archive
 

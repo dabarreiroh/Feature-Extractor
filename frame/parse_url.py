@@ -6,6 +6,11 @@ from errors import find_whois_error
 #Class to extract the domain or subdomins that compound the url
 
 class Parser_url():
+    """
+    Class to identify the domain name from an url and to remove its http/https protocol and path.
+    This class has two private attibures where the domain and url information is going to be store: domain and url.
+    The only information requiered is the url, it does not matter how the url is entered. 
+    """
 
 #Class attributes
 
@@ -25,18 +30,30 @@ class Parser_url():
 
     #Setters and getters from the domain and url variables
     def set_url(self,url):
+        """
+        Parser_url method to store the url entered to the private url attribute
+        """
         if type(url) is str:
             self.__url = url.lower().strip()
         else:
             InvalidURL()
 
     def get_url(self):
+        """
+        Parser_url method to return the private url attribute
+        """
         return self.__url
 
     def set_domain(self,domain):
-            self.__domain = domain
+          """
+        Parser_url method to store the domain into the private domain attribute
+        """
+        self.__domain = domain
        
     def get_domain(self):
+        """
+        Parser_url method to return the private domain attribute
+        """
         return self.__domain
 
 #-------------------------------------------------------------------------------------------------------------------------------------------------
@@ -45,6 +62,9 @@ class Parser_url():
     # Funcion para remover el https o http de una url en caso de la misma exista.
     # Funcion to remove the word https o http from the url in case it exists
     def remove_http(self):
+        """
+        Method to remove the protocol http/https/ftp from the url entered if existed
+        """
 
         if re.search("https",self.get_url()):
             self.set_url(self.get_url().replace('https://',''))
@@ -60,6 +80,9 @@ class Parser_url():
     # Funcion para eliminar los folder de una url, en el caso de que los mismos existaa, el proceso debe ser implementado junto con la funcion remove_http()
     # Function to remove the url's folders, in case they do exists, the process must be implemented along side with remove_http() function.   
     def remove_folders(self):
+        """
+        Method to remove paths from the url entered https://example.com/paths..../../..
+        """
 
         l = self.get_url().split('/')
         l.reverse()
@@ -75,7 +98,9 @@ class Parser_url():
     #The function uses the whois command response to validate the domain name
     #The function does not return nothing it modifies the domain attribute
     def find_domain(self):
-        
+        """
+        Method to extract the domain name from a url, it uses the reposnse from the whois command to identify the domain name  
+        """
         #self.set_url(url)
         self.remove_http()
         self.remove_folders()

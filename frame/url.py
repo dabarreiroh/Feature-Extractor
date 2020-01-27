@@ -13,6 +13,8 @@ def url_verify(f):
 
 
 class URL:
+    """Class to extrac the domain name and url's path from an url"""
+
 
     def __init__(self, url):
         self.url = url
@@ -20,6 +22,12 @@ class URL:
 
     @url_verify
     def analyze_url(self):
+        """
+        The funtion analize_url returns the domain name and the url's path from a url.
+        This function takes the inner variable url to extract the domain and url's path
+        There no need to spicifies an url format
+        """
+
         obj_url = urlparse(self.url)
         dom = obj_url.hostname
         paths = obj_url.path.rsplit('/',obj_url.path.count('/'))[1:]

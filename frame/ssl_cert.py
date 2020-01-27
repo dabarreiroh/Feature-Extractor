@@ -11,10 +11,14 @@ import parse_url
  #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 def ssl_certificate(url):
+    """
+    The ssl_certficate extract the ssl certificate information from an url.
+    This method requires that the url without paths!!  
+    """
 
     if url != '' or url != None:
         
-        hostname = 'python.org'
+        hostname = url
         ctx = ssl.create_default_context()
         s = ctx.wrap_socket(socket.socket(), server_hostname=hostname)
         s.connect((hostname, 443))
@@ -31,6 +35,9 @@ def ssl_certificate(url):
 #///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 def parse_ssl_response(data={}):
+    """
+    This method gathers the information from ssl_certificated() method and returns it in a dictionary
+    """
     
     dicc = {}
 
@@ -45,8 +52,8 @@ def parse_ssl_response(data={}):
 
 
 
-a = ssl_certificate('python.org')
-print(a)
+#a = ssl_certificate('python.org')
+#print(a)
 
 
 

@@ -1,3 +1,7 @@
+"""
+Module to find the whois record
+"""
+
 import io
 import re
 import parse_url
@@ -21,6 +25,16 @@ class main():
         self.whois(url)
 
     def whois(self,url):
+        """
+        Method to return the whois information relate to the an url.
+        Procedure:
+        1.Find the domain name
+        2. Find the registrar whois server
+        3. Find IP address
+        4. Find whois related to IP address
+        5. Retrive a Json with information gathered
+        """
+
 
         urlw = parse_url.Parser_url(url)
         urlw.find_domain()

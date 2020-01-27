@@ -1,3 +1,7 @@
+"""
+Module to parse the whois reponse into a dictionay, removing the unuseful information
+"""
+
 import json
 import io
 import re 
@@ -6,6 +10,11 @@ import re
 #whois archive "whois.text"
 
 def dictionary(data = ''):
+    """
+    Method to convert the data entered into a dictionary
+    Arguments:
+    data: Information to be stored into a dictionary
+    """
 
     if data == '':
         return {}
@@ -35,6 +44,13 @@ def dictionary(data = ''):
 
 
 def jsonparser(data = '' , dict = {}, keyword = ''):
+    """
+    Method to return a dictionary with the data entered. This method is made to parse the data returned from the whois command.
+    This method has tree arguments:
+    data(Mandatory): information to be store into a dictionary
+    dict(Optional): Use if you want to add new information to an existed dictionary
+    keyword(Optional): This argument is used if you want to group the information entered into a single keyword.
+    """
     
     if data != '':
         

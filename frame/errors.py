@@ -3,6 +3,9 @@
 whois_errors = ["no match", "no entries found" , "No whois server is known" , "nameserver not found" , "not found", "No match", "No entries found"]
 
 def find_whois_error(text=''):
+    """
+    Method used to find possible errors from the whois command. These error are related to domains without a whois record.
+    """
         
         error = ''
 
