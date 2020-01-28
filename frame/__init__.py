@@ -1,7 +1,6 @@
 """
 Module to find the whois record
 """
-
 import io
 import re
 import parse_url
@@ -46,10 +45,10 @@ class main():
         dicc1 = parse_response.jsonparser(data=data['w'],dict={},keyword='Domain Whois Record')
         dicc2 = parse_response.jsonparser(data=data['w_server'],dict=dicc1,keyword='Registrar Whois Record')
         dicc3 = parse_response.jsonparser(data=data['w_ip'],dict=dicc2,keyword='Network Whois Record')
-        dicc4 = parse_response.jsonparser(data=data['ip'],dict=dicc3,keyword='Address Lookup')
-        dicc4['SSL Certificate'] = certificate
+        dicc3['Address Lookup'] = data['ip'].split('\n')
+        dicc3['SSL Certificate'] = certificate
 
-        json_response = json.dumps(dicc4)
+        json_response = json.dumps(dicc3)
         print(json_response)
         #print(dicc4)
         

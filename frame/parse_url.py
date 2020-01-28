@@ -45,7 +45,7 @@ class Parser_url():
         return self.__url
 
     def set_domain(self,domain):
-          """
+        """
         Parser_url method to store the domain into the private domain attribute
         """
         self.__domain = domain
