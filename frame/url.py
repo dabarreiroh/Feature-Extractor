@@ -2,6 +2,7 @@ from functools import wraps
 import urllib3
 from urllib.parse import urlparse
 import json
+import threading
 
 #decorator
 def url_verify(f):
@@ -31,16 +32,13 @@ class URL:
     def analyze_url(self):
         npaths=self.kwargs["npaths"]
         obj_url = urlparse(self.url)
-        sub = obj_url.hostname.rsplit('.', obj_url.hostname.count('.'))[0:1]
-        dom = obj_url.hostname.rsplit('.',obj_url.hostname.count('.'))[1:]
-        if (sub == dom[0] ):
-            sub=""
-        else:
-            if (len(dom[0])<4):
-                dom = obj_url.hostname.rsplit('.', obj_url.hostname.count('.'))[0:]
-                sub=""
-        sub='.'.join(sub)
+#        sub = obj_url.hostname.rsplit('.', obj_url.hostname.count('.'))[0:1]
+        dom = obj_url.hostname.rsplit('.',obj_url.hostname.count('.'))[-2:]
+        if (len(dom[0])<4):
+            dom = obj_url.hostname.rsplit('.', obj_url.hostname.count('.'))[-3:]
+            sub=obj_url.hostname.replace('.'.join(dom),'')
         dom='.'.join(dom)
+        sub = obj_url.hostname.replace('.'+dom, '')
         paths = obj_url.path.rsplit('/',obj_url.path.count('/'))[1:]
      #self.url.replace(obj_url.hostname,'').replace('https','').replace('http','').replace('/','').replace(obj_url.path,'')
         if npaths == 'default':
