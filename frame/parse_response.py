@@ -28,17 +28,29 @@ def dictionary(data = ''):
         if line.split(':',maxsplit=1)[0].count(' ') < 6 and line.count(':') < 1  or line.count(':') != 0 :
             
             lista = line.replace('\n','',1).split(':',maxsplit=1)
-                         
-            try:
-                dicc[str(lista[0])] 
-            except (NameError,KeyError):
-                dicc[str(lista[0])] = str(lista[-1]).strip()
-            else:
-                if str(lista[-1]) == '' or str(lista[-1]) == None:
-                    pass
+
+            if len(lista) > 1 :
+                try:
+                    dicc[str(lista[0])] 
+                except (NameError,KeyError):
+                    dicc[str(lista[0])] = str(lista[-1]).strip()
                 else:
-                    aux = str(lista[-1]).strip() + ' , ' + str(dicc.get(lista[0]))
-                    dicc[lista[0]] = aux
+                    if str(lista[-1]) == '' or str(lista[-1]) == None:
+                        pass
+                    else:
+                        aux = str(lista[-1]).strip() + ' , ' + str(dicc.get(lista[0]))
+                        dicc[lista[0]] = aux
+            else:
+                try:
+                    dicc['Other'] 
+                except (NameError,KeyError):
+                    dicc['Other'] = str(lista[0]).strip()
+                else:
+                    if str(lista[-1]) == '' or str(lista[-1]) == None:
+                        pass
+                    else:
+                        aux = str(lista[-1]).strip() + ' , ' + str(dicc.get('Other'))
+                        dicc['Other'] = aux
 
     return dicc
 
