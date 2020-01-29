@@ -29,25 +29,6 @@ class Whois():
     
     #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    def ssl(self,url):
-        """
-        This method extract the ssl certificated related to a domain name or subdomain name.
-        """
-
-        if url != '' or url != None:
-
-            hostname = parse_url.Parser_url(url)
-            hostname.remove_http()
-            hostname.remove_folders()
-
-            ctx = ssl.create_default_context()
-            s = ctx.wrap_socket(socket.socket(), server_hostname=hostname.get_url())
-            s.connect((hostname.get_url(), 443))
-
-            return s.getpeercert()
-        else:
-            return None
-
     #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
        
     def whois(self,dom):
