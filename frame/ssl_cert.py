@@ -4,7 +4,6 @@ import ssl, socket
 import parse_url
 
 
-
 #funtion to extrac the ssl
 
  #//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -25,12 +24,12 @@ def ssl_certificate(url):
             s.connect((hostname, 443))
         except Exception as e:
             #print(type(e).__name__ + ' error')
-            return {}
+            return {"":""}
         else:
             return  parse_ssl_response(s.getpeercert())
     else:
 
-        return {}
+        return {"":""}
 
 
 
@@ -42,7 +41,7 @@ def parse_ssl_response(data={}):
     """
     
     dicc = {}
-
+        
     for value in data.keys():
     
         if type(data[value]) == tuple:

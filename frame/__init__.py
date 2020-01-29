@@ -34,7 +34,6 @@ class main():
         5. Retrive a Json with information gathered
         """
 
-
         urlw = parse_url.Parser_url(url)
         urlw.find_domain()
         wh = whois_query.Whois()
@@ -65,7 +64,7 @@ class main():
 
 
 
-test =  main('http://json.parser.online.fr/')
+test =  main('python.org')
 
 
 
