@@ -65,7 +65,7 @@ class main():
 
 
 
-test =  main('https://yahoo.com')
+test =  main('http://json.parser.online.fr/')
 
 
 

@@ -40,3 +40,7 @@ class URL:
             except:
                 paths.insert(i, "NaN")
         return dom, paths
+
+
+#url = URL(url="http://json.parser.online.fr/")
+#url

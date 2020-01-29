@@ -1,4 +1,3 @@
-
 #Document to extract the url ssl and parse it response in dictionary format
 
 import ssl, socket
@@ -21,11 +20,14 @@ def ssl_certificate(url):
         hostname = url
         ctx = ssl.create_default_context()
         s = ctx.wrap_socket(socket.socket(), server_hostname=hostname)
-        s.connect((hostname, 443))
-        #cert = s.getpeercert()
-
-        return  parse_ssl_response(s.getpeercert())
-
+        s.settimeout(2)
+        try:  
+            s.connect((hostname, 443))
+        except Exception as e:
+            #print(type(e).__name__ + ' error')
+            return {}
+        else:
+            return  parse_ssl_response(s.getpeercert())
     else:
 
         return {}
@@ -52,6 +54,7 @@ def parse_ssl_response(data={}):
 
 
 
+#a = ssl_certificate('json.parser.online.fr')
 #a = ssl_certificate('python.org')
 #print(a)
 

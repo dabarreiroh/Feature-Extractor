@@ -95,7 +95,7 @@ class Whois():
 
 
 #a = Whois()
-#print(a.whois('facebook.com'))
+#print(a.whois("online.fr"))
 #p = requests.get('https://yahoo.com/')
 #print(p.headers)
 
