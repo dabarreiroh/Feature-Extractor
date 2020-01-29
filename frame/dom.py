@@ -8,13 +8,15 @@ import requests
 class Dom():
     def __init__(self,html):
         self.html = html
+
+    def __str__(self):
+        return json.dumps({"forms":str([self.html.forms[i].action for i in range(0,len(self.html.forms))])})
+
     @classmethod
     def Url(cls,url):
         page = requests.get(url)
-        cls.html = html.fromstring(page.content)
-        return cls.html
-    def __str__(self):
-        return 1#json.dumps({"forms":self.html})
+        domhtml = html.fromstring(page.content)
+        return cls(domhtml)
 
 obj=Dom.Url('https://facebook.com')
 print(obj)
