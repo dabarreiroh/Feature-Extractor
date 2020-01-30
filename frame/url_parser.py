@@ -11,7 +11,8 @@ def url_verify(f):
         if 'http' in args[0].url:
             return f(*args, **kwargs)
         else:
-            return f(URL('http://NaN/',npaths=10))#raise RuntimeError('It is not a URL')
+            #return f(URL('http://NaN/',npaths=10))#raise RuntimeError('It is not a URL')
+            return f(URL('http://'+args[0].url,npaths=10))#raise RuntimeError('It is not a URL')
     return decorator
 
 
@@ -59,8 +60,8 @@ class URL:
 
 
 
-a=URL("https://test.biblored.gov.co/",npaths='default')
-print(a.json())
-print(a.path)
-print(a.domain)
-print(a.subdomain)
+#a=URL("https://test.biblored.gov.co/",npaths='default')
+#print(a.json())
+#print(a.path)
+#print(a.domain)
+#print(a.subdomain)

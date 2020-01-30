@@ -9,6 +9,7 @@ import json
 import parse_response
 import whois_query 
 import ssl_cert
+import url_parser
 
 #Procedure to extract all the whois information through the whois and dig linux command
 #
@@ -33,13 +34,23 @@ class main():
         4. Find whois related to IP address
         5. Retrive a Json with information gathered
         """
+        
+        #url2 = url_parser.URL(url)
+        #print("url2: ",url2.json())
 
-        urlw = parse_url.Parser_url(url)
-        urlw.find_domain()
-        wh = whois_query.Whois()
-        data = wh.whois(dom = urlw.get_domain())
-        certificate = ssl_cert.ssl_certificate((urlw.get_url()))
+        #Domain extration with parse_url module//////////////////////////////////
+        #urlw = parse_url.Parser_url(url)
+        #urlw.find_domain()
+        #wh = whois_query.Whois()
+        #data = wh.whois(dom = urlw.get_domain())
+        #certificate = ssl_cert.ssl_certificate((urlw.get_url()))
         #print(certificate)
+        #///////////////////////////////////////////////////////////////////////
+
+        urlw = url_parser.URL(url)
+        wh = whois_query.Whois()
+        data = wh.whois(dom = urlw.domain)
+        certificate = ssl_cert.ssl_certificate(urlw.domain)
         
         dicc1 = parse_response.jsonparser(data=data['w'],dict={},keyword='Domain Whois Record')
         dicc2 = parse_response.jsonparser(data=data['w_server'],dict=dicc1,keyword='Registrar Whois Record')
