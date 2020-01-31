@@ -1,8 +1,6 @@
 """
 Module to find the whois record
 """
-import io
-import re
 import parse_url
 import query
 import json
@@ -10,6 +8,7 @@ import parse_response
 import whois_query 
 import ssl_cert
 import url_parser
+import dom
 
 #Procedure to extract all the whois information through the whois and dig linux command
 #
@@ -52,11 +51,14 @@ class main():
         data = wh.whois(dom = urlw.domain)
         certificate = ssl_cert.ssl_certificate(urlw.domain)
         
+        domain = dom.Dom.Url(url)
+
         dicc1 = parse_response.jsonparser(data=data['w'],dict={},keyword='Domain Whois Record')
         dicc2 = parse_response.jsonparser(data=data['w_server'],dict=dicc1,keyword='Registrar Whois Record')
         dicc3 = parse_response.jsonparser(data=data['w_ip'],dict=dicc2,keyword='Network Whois Record')
         dicc3['Address Lookup'] = data['ip'].split('\n')
         dicc3['SSL Certificate'] = certificate
+        dicc3['Html Info'] = {"forms":str([domain.html.forms[i].action for i in range(0,len(domain.html.forms))])}
 
         json_response = json.dumps(dicc3)
         print(json_response)
@@ -75,7 +77,7 @@ class main():
 
 
 
-test =  main('python.org')
+test =  main('https://outlook.office365.com')
 
 
 
