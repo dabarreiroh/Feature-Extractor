@@ -3,18 +3,30 @@ import urllib3
 from urllib.parse import urlparse
 import json
 import threading
+import re
 
 #decorator
+#def url_verify(f):
+#    @wraps(f)
+#    def decorator(*args, **kwargs):
+#        if 'http' in args[0].url:
+#            return f(*args, **kwargs)
+#        else:
+#            #return f(URL('http://NaN/',npaths=10))#raise RuntimeError('It is not a URL')
+#            return f(URL('http://'+args[0].url,npaths=10))#raise RuntimeError('It is not a URL')
+#    return decorator
+
 def url_verify(f):
     @wraps(f)
     def decorator(*args, **kwargs):
-        if 'http' in args[0].url:
+        match = re.search(r'(http.?)?(://)+([\._\-~a-zA-Z0-9\.]{1,}).([:0-9]{0,})|(ftp)?(://)+([\._\-~a-zA-Z0-9\.]{1,}).([:0-9]{0,})',args[0].url)
+        url_main2 = args[0].url.split('/')
+        url_main = "/".join(url_main2[0:3])
+        if len(match.group()) == len(url_main):
             return f(*args, **kwargs)
         else:
-            #return f(URL('http://NaN/',npaths=10))#raise RuntimeError('It is not a URL')
-            return f(URL('http://'+args[0].url,npaths=10))#raise RuntimeError('It is not a URL')
+            return f(URL('http://NaN/',npaths=10))#raise RuntimeError('It is not a URL')
     return decorator
-
 
 class URL:
 
@@ -60,8 +72,8 @@ class URL:
 
 
 
-#a=URL("https://test.biblored.gov.co/",npaths='default')
-#print(a.json())
-#print(a.path)
-#print(a.domain)
-#print(a.subdomain)
+a=URL('ftp://f4tg_.fo.c-o_m.rar:4846/aaasdf@#asdgg/asdgsg/s',npaths='default')
+print(a.json())
+print(a.path)
+print(a.domain)
+print(a.subdomain)
