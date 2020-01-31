@@ -19,8 +19,8 @@ import re
 def url_verify(f):
     @wraps(f)
     def decorator(*args, **kwargs):
-        match = re.search(r'(http.?)?(://)+([\._\-~a-zA-Z0-9\.]{1,}).([:0-9]{0,})|(ftp)?(://)+([\._\-~a-zA-Z0-9\.]{1,}).([:0-9]{0,})',args[0].url)
-        url_main2 = args[0].url.split('/')
+        match = re.search(r'(http.?)?(://)+([\._\-~a-zA-Z0-9\.]{1,}).([:0-9]{0,})|(ftp)?(://)+([\._\-~a-zA-Z0-9\.]{1,}).([:0-9]{0,})',args[0].url.lower())
+        url_main2 = args[0].url.lower().split('/')
         url_main = "/".join(url_main2[0:3])
         if len(match.group()) == len(url_main):
             return f(*args, **kwargs)
@@ -72,7 +72,7 @@ class URL:
 
 
 
-a=URL('ftp://f4tg_.fo.c-o_m.rar:4846/aaasdf@#asdgg/asdgsg/s',npaths='default')
+a=URL('ftp://f4tg_.fo.c-o_m.rAr:4846/aaasdf@#asdgg/asdgsg/s',npaths='default')
 print(a.json())
 print(a.path)
 print(a.domain)
