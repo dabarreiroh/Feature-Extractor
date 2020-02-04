@@ -20,7 +20,7 @@ def url_verify(f):
     @wraps(f)
     def decorator(*args, **kwargs):
         try:
-            match = re.search(r'(http.?://)([\._\-~a-zA-Z0-9\.]{1,}(:[0-9]{0,}){0,})|(ftp://)([\._\-~a-zA-Z0-9\.]{1,}(:[0-9]{0,}){0,})',args[0].url.lower())
+            match = re.search(r'(http.?://)([\._\-~a-zA-Z0-9\.]{1,}(:)?([0-9]{0,}){0,})|(ftp://)([\._\-~a-zA-Z0-9\.]{1,}(:)?([0-9]{0,}){0,})',args[0].url.lower())
             url_main2 = args[0].url.lower().split('/')
             url_main = "/".join(url_main2[0:3])
             if len(match.group()) == len(url_main):
@@ -76,7 +76,7 @@ class URL:
 
 
 
-a=URL('https://teams.microsoft.com/_#/conversations/19:49be9e91-1697-4629-a29a-37aff1b2bfb7_97a0c11a-7cef-4331-a362-73e50754efa0@unq.gbl.spaces?ctx=chat',npaths='default')
+a=URL('https://teams.microsoft.com:4000/_#/conversations/19:49be9e91-1697-4629-a29a-37aff1b2bfb7_97a0c11a-7cef-4331-a362-73e50754efa0@unq.gbl.spaces?ctx=chat',npaths='default')
 print(a.json())
 print(a.path)
 print(a.domain)
