@@ -19,13 +19,17 @@ import re
 def url_verify(f):
     @wraps(f)
     def decorator(*args, **kwargs):
-        match = re.search(r'(http.?)?(://)+([\._\-~a-zA-Z0-9\.]{1,}).([:0-9]{0,})|(ftp)?(://)+([\._\-~a-zA-Z0-9\.]{1,}).([:0-9]{0,})',args[0].url.lower())
-        url_main2 = args[0].url.lower().split('/')
-        url_main = "/".join(url_main2[0:3])
-        if len(match.group()) == len(url_main):
-            return f(*args, **kwargs)
-        else:
+        try:
+            match = re.search(r'(http.?://)([\._\-~a-zA-Z0-9\.]{1,}(:[0-9]{0,}){0,})|(ftp://)([\._\-~a-zA-Z0-9\.]{1,}(:[0-9]{0,}){0,})',args[0].url.lower())
+            url_main2 = args[0].url.lower().split('/')
+            url_main = "/".join(url_main2[0:3])
+            if len(match.group()) == len(url_main):
+                return f(*args, **kwargs)
+            else:
+                return f(URL('http://NaN/',npaths=10))#raise RuntimeError('It is not a URL')
+        except :
             return f(URL('http://NaN/',npaths=10))#raise RuntimeError('It is not a URL')
+        
     return decorator
 
 class URL:
@@ -72,7 +76,7 @@ class URL:
 
 
 
-a=URL('ftp://f4tg_.fo.c-o_m.rAr:4846/aaasdf@#asdgg/asdgsg/s',npaths='default')
+a=URL('https://teams.microsoft.com/_#/conversations/19:49be9e91-1697-4629-a29a-37aff1b2bfb7_97a0c11a-7cef-4331-a362-73e50754efa0@unq.gbl.spaces?ctx=chat',npaths='default')
 print(a.json())
 print(a.path)
 print(a.domain)
