@@ -53,6 +53,7 @@ class main():
         #dicc3['Html Info'] = {"forms":str([domain.html.forms[i].action for i in range(0,len(domain.html.forms))])}
 
         dicc1 = parse_response.jsonparser(data=data['w'],dict={},keyword='Domain Whois Record')
+        dicc1.update({'URL Parse' : {"URL":urlw.url,"domain":urlw.domain,"subdomain":urlw.subdomain,"paths":urlw.path}})
         dicc1.update({'Registrar Whois Record' : parse_response.jsonparser(data=data['w_server'],dict={},keyword='')})
         dicc1.update({'Network Whois Record' : parse_response.jsonparser(data=data['w_ip'],dict={},keyword='')})
         dicc1.update({'Address Lookup' : data['ip'].split('\n')})

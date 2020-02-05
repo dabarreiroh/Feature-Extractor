@@ -8,7 +8,6 @@ urls=open('url.txt','r')
 jsonresponse=open('jsonresponse.txt','w')
 count=0
 for linea in urls.readlines():
-    #print({count:Feature_Extractor.main(linea.replace('\n','')).whois})
     result.update({count:Feature_Extractor.main(linea.replace('\n','')).whois}) 
     count+=1
 jsonresponse.write(json.dumps(result))
