@@ -52,7 +52,7 @@ class Whois():
 
         w = command_query(command='whois '+ str(dom))
         ip = command_query(command='dig '+ str(dom) + ' +short' )
-        
+        print(ip)
         #print("whois: {} \n Ip: {}".format(w,ip))
         adress = ip.split('\n')
 

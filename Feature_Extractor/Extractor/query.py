@@ -34,14 +34,15 @@ def command_query(command='',TimeOut=4):
         else:
             
             dig.kill()
-
-        if dig.returncode != 0 and dig.returncode != 1 and response[-1] != '':
-                        
-            return 'Command Error'
-
-        else:
-
             return response[0]
+            
+        #if dig.returncode != 0 and dig.returncode != 1 and response[-1] != '':
+            
+        #    return 'Command Error'
+
+        #else:
+
+        #    return response[0]
 
     
             

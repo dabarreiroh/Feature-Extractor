@@ -75,10 +75,14 @@ def jsonparser(data = '' , dict = {}, keyword = ''):
     
         if keyword == '':
             dicc = dictionary(lineas)
-            return dicc
         else:
             dicc[keyword] = dictionary(lineas)
-            return dicc
+            
+        try:
+            del dicc["Other"]
+        except:
+            pass
+        return dicc
     else:
         return {}    
 
