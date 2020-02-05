@@ -1,7 +1,7 @@
 #Document to extract the url ssl and parse it response in dictionary format
 
 import ssl, socket
-import parse_url
+
 
 
 #funtion to extrac the ssl

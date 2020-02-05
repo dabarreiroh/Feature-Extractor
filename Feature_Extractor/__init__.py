@@ -1,14 +1,14 @@
 """
 Module to find the whois record
 """
-import parse_url
-import query
+
+
 import json
-import parse_response
-import whois_query 
-import ssl_cert
-import url_parser
-import dom
+from Feature_Extractor.Extractor import parse_response
+from Feature_Extractor.Extractor import whois_query
+from Feature_Extractor.Extractor import ssl_cert
+from Feature_Extractor.Parser import url_parser
+from Feature_Extractor.Parser import dom
 
 #Procedure to extract all the whois information through the whois and dig linux command
 #
@@ -34,17 +34,7 @@ class main():
         5. Retrive a Json with information gathered
         """
         
-        #url2 = url_parser.URL(url)
-        #print("url2: ",url2.json())
 
-        #Domain extration with parse_url module//////////////////////////////////
-        #urlw = parse_url.Parser_url(url)
-        #urlw.find_domain()
-        #wh = whois_query.Whois()
-        #data = wh.whois(dom = urlw.get_domain())
-        #certificate = ssl_cert.ssl_certificate((urlw.get_url()))
-        #print(certificate)
-        #///////////////////////////////////////////////////////////////////////
 
         urlw = url_parser.URL(url)
         wh = whois_query.Whois()
@@ -62,7 +52,7 @@ class main():
 
         json_response = json.dumps(dicc3)
         print(json_response)
-        #print(dicc4)
+
         
        
             
@@ -77,7 +67,7 @@ class main():
 
 
 
-test =  main('https://outlook.office365.com')
+test =  main('https://docs.python.org/3/library/urllib.parse.html#module-urllib.parse')
 
 
 

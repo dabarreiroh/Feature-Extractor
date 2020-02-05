@@ -2,7 +2,7 @@ from functools import wraps
 import urllib3
 from urllib.parse import urlparse
 import json
-import threading
+
 import re
 
 

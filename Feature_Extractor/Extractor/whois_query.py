@@ -1,10 +1,10 @@
 import re
 import ssl
-import errors
+from Feature_Extractor.Error import errors
 import socket
-import parse_url
-from query import command_query
-from parse_response import jsonparser
+
+from Feature_Extractor.Extractor.query import command_query
+from Feature_Extractor.Extractor.parse_response import jsonparser
 
 #Procedure to extract all the whois information from the whois and dig linux command
 #
