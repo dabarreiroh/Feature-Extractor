@@ -17,5 +17,5 @@ class Dom():
         domhtml = html.fromstring(page.content)
         return cls(domhtml)
 
-obj=Dom.Url('https://github.com/dabarreiroh/Research-CTAC/blob/master/frame/dom.py')
-print(obj)
+"""obj=Dom.Url('https://github.com/dabarreiroh/Research-CTAC/blob/master/frame/dom.py')
+print(obj)"""

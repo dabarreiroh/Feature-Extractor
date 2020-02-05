@@ -29,8 +29,8 @@ def command_query(command='',TimeOut=4):
         except TimeoutError:
             
             dig.kill()
-            response = dig.communicate(timeout=10)
-
+            #response = dig.communicate(timeout=10)
+            return "NOt found"
         else:
             
             dig.kill()
