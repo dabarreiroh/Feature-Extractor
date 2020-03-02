@@ -37,32 +37,45 @@ class main():
         """
         
 
-
+        domain = dom.Dom.Url(self.url)
         urlw = url_parser.URL(self.url)
         wh = whois_query.Whois()
-        data = wh.whois(dom = urlw.domain)
-        certificate = ssl_cert.ssl_certificate(urlw.domain)
-        
-        domain = dom.Dom.Url(self.url)
+        #data='{"w"=" "}'#data = wh.whois(dom = urlw.domain)
+        #certificate = ssl_cert.ssl_certificate(urlw.domain)
+        url=lambda x : 1 if len(x)>100 else 2
+        pathsfun=lambda x :True if x!='NaN' else False
+        pathsfil=pathsfun(urlw.path)
+        paths=lambda x : len(list(filter(pathsfun,x)))
+        pathschar=lambda x : 1 if ('$'or'_'or'-'or'&'or'~'or'+'or'=') in str(x) else 2
+        domains=lambda x: 1 if len(x) >20 else 2
+        subdomains=lambda x :1 if len(x)==1 else 2
+        """Dominios gTLD no restringidos"""
+        tld=['com','info','net','org']
+        """Dominios gTLD restringidos"""
+        tld2=['biz','name','pro']
+        """Dominios gTLD patrocinados"""
+        tld3=['aero','asia','cat',	'coop','edu','gov','int','jobs','mil','mobi','museum','post','tel','travel','xxx']
+        tlds=lambda x: 1 if x.rsplit('.')[1] in str(tld) else 2 if x.domain.rsplit('.')[1] in str(tld2) else 3 if x.domain.rsplit('.')[1] in str(tld3) else 4
+
+        dicc1 = json.dumps({"url description": {"url_len": url(urlw.url), "domain_len": domains(urlw.domain), "subdomain_len": subdomains(urlw.subdomain),"tld":tlds(urlw.domain),"special_chrtrs_count": pathschar(urlw.path) ,"paths_len": paths(urlw.path) }})
+        forms = lambda x: 1 if len(x) == 0 else 2
+        dicc1.update({'html description': {
+            "forms": forms([str(domain.html.forms[i].action) for i in range(0, len(domain.html.forms))])}})
+        print(dicc1)
+        dicc1 = json.loads(dicc1)
 
         #dicc1 = parse_response.jsonparser(data=data['w'],dict={},keyword='Domain Whois Record')
-        #dicc2 = parse_response.jsonparser(data=data['w_server'],dict=dicc1,keyword='Registrar Whois Record')
-        #dicc3 = parse_response.jsonparser(data=data['w_ip'],dict=dicc2,keyword='Network Whois Record')
-        #dicc3['Address Lookup'] = data['ip'].split('\n')
-        #dicc3['SSL Certificate'] = certificate
-        #dicc3['Html Info'] = {"forms":str([domain.html.forms[i].action for i in range(0,len(domain.html.forms))])}
 
-        dicc1 = parse_response.jsonparser(data=data['w'],dict={},keyword='Domain Whois Record')
-        dicc1.update({'URL Parse' : {"URL":urlw.url,"domain":urlw.domain,"subdomain":urlw.subdomain,"paths":urlw.path}})
-        dicc1.update({'Registrar Whois Record' : parse_response.jsonparser(data=data['w_server'],dict={},keyword='')})
-        dicc1.update({'Network Whois Record' : parse_response.jsonparser(data=data['w_ip'],dict={},keyword='')})
-        dicc1.update({'Address Lookup' : data['ip'].split('\n')})
-        dicc1.update({'SSL Certificate' : certificate})
-        dicc1.update({'Html Info' : {"forms":str([domain.html.forms[i].action for i in range(0,len(domain.html.forms))])}})
+        #dicc1.update({'URL Parse' : {"URL":urlw.url,"domain":urlw.domain,"subdomain":urlw.subdomain,"paths":urlw.path}})
+        #dicc1.update({'Registrar Whois Record' : parse_response.jsonparser(data=data['w_server'],dict={},keyword='')})
+        #dicc1.update({'Network Whois Record' : parse_response.jsonparser(data=data['w_ip'],dict={},keyword='')})
+        #dicc1.update({'Address Lookup' : data['ip'].split('\n')})
+        #dicc1.update({'SSL Certificate' : certificate})
 
 
-        json_response = json.dumps(dicc1)
-        return str(json_response)
+        #json_response = json.dumps(dicc1)
+        #print(json_response)
+        return dicc1#str(json_response)
 
 
 

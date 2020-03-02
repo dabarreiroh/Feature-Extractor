@@ -46,7 +46,7 @@ class URL:
             dom = obj_url.hostname.rsplit('.', obj_url.hostname.count('.'))[-3:]
             sub = obj_url.hostname.replace('.'.join(dom), '')
         dom = '.'.join(dom)
-        sub = obj_url.hostname.replace('.' + dom, '')
+        sub = obj_url.hostname.replace(dom, '')
         paths = obj_url.path.rsplit('/', obj_url.path.count('/'))[1:]
         if npaths == 'default':
             npaths = len(paths)
@@ -64,13 +64,3 @@ class URL:
         return json.dumps(
             {"domain": self.domain, "paths": self.path[0:], "subdomain": self.subdomain, "url_body": self.url_body})
 
-
-"""a = URL(
-    'https://teams.microsoft.com:4000/_#/conversations/19:49be9e91-1697-4629-a29a-37aff1b2bfb7_97a0c11a-7cef-4331-a362-73e50754efa0@unq.gbl.spaces?ctx=chat',
-    npaths='default')
-
-print(a.json())
-print(a.path)
-print(a.domain)
-print(a.subdomain)
-"""
