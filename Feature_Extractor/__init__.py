@@ -7,6 +7,7 @@ import json
 from Feature_Extractor.Extractor import parse_response
 from Feature_Extractor.Extractor import whois_query
 from Feature_Extractor.Extractor import ssl_cert
+from Feature_Extractor.Extractor import extract_characteristics
 from Feature_Extractor.Parser import url_parser
 from Feature_Extractor.Parser import dom
 
@@ -36,8 +37,6 @@ class main():
         5. Retrive a Json with information gathered
         """
         
-
-
         urlw = url_parser.URL(self.url)
         wh = whois_query.Whois()
         data = wh.whois(dom = urlw.domain)
@@ -60,6 +59,9 @@ class main():
         dicc1.update({'SSL Certificate' : certificate})
         dicc1.update({'Html Info' : {"forms":str([domain.html.forms[i].action for i in range(0,len(domain.html.forms))])}})
 
+        test = {"ssl": extract_characteristics.ssl_issuer(certificate) , "whois" : extract_characteristics.whois_characteristics(dicc1) }
+        
+        print(test)
 
         json_response = json.dumps(dicc1)
         return str(json_response)

@@ -2,3 +2,5 @@ lxml
 request
 requests
 urllib3
+maya
+dateutils
