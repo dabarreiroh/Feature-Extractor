@@ -7,6 +7,7 @@ import json
 from Feature_Extractor.Extractor import parse_response
 from Feature_Extractor.Extractor import whois_query
 from Feature_Extractor.Extractor import ssl_cert
+from Feature_Extractor.Extractor import extract_characteristics
 from Feature_Extractor.Parser import url_parser
 from Feature_Extractor.Parser import dom
 
@@ -40,8 +41,10 @@ class main():
         domain = dom.Dom.Url(self.url)
         urlw = url_parser.URL(self.url)
         wh = whois_query.Whois()
-        #data='{"w"=" "}'#data = wh.whois(dom = urlw.domain)
-        #certificate = ssl_cert.ssl_certificate(urlw.domain)
+        #/////////////////////////////////
+        data = wh.whois(dom = urlw.domain)
+        certificate = ssl_cert.ssl_certificate(urlw.domain)
+        #/////////////////////////////////
         url=lambda x : 1 if len(x)>100 else 2
         pathsfun=lambda x :True if x!='NaN' else False
         pathsfil=pathsfun(urlw.path)
@@ -65,6 +68,8 @@ class main():
         forms = lambda x: 1 if len(x) == 0 else 2
         dicc1.update({'html description': {
             "forms": forms([str(domain.html.forms[i].action) for i in range(0, len(domain.html.forms))])}})
+        dicc1.update({"ssl": extract_characteristics.ssl_issuer(certificate) , "whois" : extract_characteristics.whois_characteristics(parse_response.jsonparser(data=data['w'],dict={},keyword='Domain Whois Record')) })
+        
         print(dicc1)
         dicc1 = json.loads(dicc1)
 
@@ -80,7 +85,6 @@ class main():
         #json_response = json.dumps(dicc1)
         #print(json_response)
         return dicc1#str(json_response)
-
 
 
 
