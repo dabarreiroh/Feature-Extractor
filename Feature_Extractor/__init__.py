@@ -10,6 +10,7 @@ from Feature_Extractor.Extractor import ssl_cert
 from Feature_Extractor.Extractor import extract_characteristics
 from Feature_Extractor.Parser import url_parser
 from Feature_Extractor.Parser import dom
+import re
 
 #Procedure to extract all the whois information through the whois and dig linux command
 #
@@ -65,8 +66,9 @@ class main():
 
 
         tlds=lambda x: 1 if x.rsplit('.')[1] in str(tld) else 2 if x.domain.rsplit('.')[1] in str(tld2) else 3 if x.domain.rsplit('.')[1] in str(tld3) else 4
+        verifyip=lambda x: 2 if( (len(re.findall(r"2[0-5][0-5]|1[0-9][0-9]|[0-9][0-9]|[0-9]|[a-zA-Z]",x)) >= 4) and (len(re.findall(r"\.",x)) == 3 )and (len(re.findall(r"[a-zA-Z]",x))== 0)) else 1
 
-        dicc1 = {"url description": {"url_len": url(urlw.url), "domain_len": domains(urlw.domain), "subdomain_len": subdomains(urlw.subdomain),"tld":tlds(urlw.domain),"special_chrtrs_count": pathschar(urlw.path) ,"paths_len": paths(urlw.path) }}
+        dicc1 = {"url description": {"url_len": url(urlw.url), "domain_len": domains(urlw.domain), "subdomain_len": subdomains(urlw.subdomain),"tld":tlds(urlw.domain),"special_chrtrs_count": pathschar(urlw.path) ,"urlip": verifyip(urlw.subdomain+urlw.domain),"paths_len": paths(urlw.path) }}
         forms = lambda x: 1 if len(x) == 0 else 2
         dicc1.update({'html description': {
             "forms": forms([str(domain.html.forms[i].action) for i in range(0, len(domain.html.forms))])}})
