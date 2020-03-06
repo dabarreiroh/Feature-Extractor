@@ -45,45 +45,52 @@ class Whois():
 
         """
         
-        #whois = parse_url.Parser_url(url)
-        #whois.find_domain()
-        #whois.set_url(url)
-        #whois.find_domain()
 
-        w = command_query(command='whois '+ str(dom))
-        ip = command_query(command='dig '+ str(dom) + ' +short' )
-        print(ip)
-        #print("whois: {} \n Ip: {}".format(w,ip))
-        adress = ip.split('\n')
+        points = len(re.findall(r"\.",dom))
+        letters = len(re.findall(r"[a-zA-Z]",dom)) 
+                
 
-        for ipv4 in adress:
+        if len(re.findall(r"2[0-5][0-5]|1[0-9][0-9]|[0-9][0-9]|[0-9]|[a-zA-Z]",dom)) >= 4 and points == 3 and letters == 0:
+            
+            wip = command_query(command='whois ' + dom,TimeOut=10)
+            return {'w':'','w_server':'','ip':dom,'w_ip':wip}    
 
-            points = len(re.findall(r"\.",ipv4))
-            letters = len(re.findall(r"[a-zA-Z]",ipv4)) 
-            #print(linea + " " + str(nip) + " " +str(points) )
+        else:
+            
+            w = command_query(command='whois '+ str(dom))
+            ip = command_query(command='dig '+ str(dom) + ' +short' )
+            #print(ip)
+            #print("whois: {} \n Ip: {}".format(w,ip))
+            adress = ip.split('\n')
 
-            if len(re.findall(r"2[0-5][0-5]|1[0-9][0-9]|[0-9][0-9]|[0-9]|[a-zA-Z]",ipv4)) >= 4 and points == 3 and letters == 0:               
-                wip = command_query(command='whois ' + ipv4,TimeOut=10)
-                break
+            for ipv4 in adress:
+
+                points = len(re.findall(r"\.",ipv4))
+                letters = len(re.findall(r"[a-zA-Z]",ipv4)) 
+                #print(linea + " " + str(nip) + " " +str(points) )
+
+                if len(re.findall(r"2[0-5][0-5]|1[0-9][0-9]|[0-9][0-9]|[0-9]|[a-zA-Z]",ipv4)) >= 4 and points == 3 and letters == 0:               
+                    wip = command_query(command='whois ' + ipv4,TimeOut=10)
+                    break
+                else:
+                    wip = ''
+
+            try:
+                match = re.search( r"Registrar WHOIS Server:(.*)",w,re.I).group() #.group()  #.string.split(':')[-1].strip()
+            except:
+                match = ''
             else:
-                wip = ''
+                wserver = match.split(':')[-1].strip()
 
-        try:
-            match = re.search( r"Registrar WHOIS Server:(.*)",w,re.I).group() #.group()  #.string.split(':')[-1].strip()
-        except:
-            match = ''
-        else:
-            wserver = match.split(':')[-1].strip()
+            if match == '' or match == None:
+                response = {'w':w,'w_server':'','ip':ip,'w_ip':wip}
+            else:
+                #print('whois '+ whois.get_domain() + ' -h ' + wserver)
+                w_server = command_query(command='whois '+ dom + ' -h ' + wserver, TimeOut= 10) #change to whois.txt
+                response = {'w':w,'w_server':w_server,'ip':ip,'w_ip':wip}
+            #print("whois server: {}".format(w))
 
-        if match == '' or match == None:
-            response = {'w':w,'w_server':'','ip':ip,'w_ip':wip}
-        else:
-            #print('whois '+ whois.get_domain() + ' -h ' + wserver)
-            w_server = command_query(command='whois '+ dom + ' -h ' + wserver, TimeOut= 10) #change to whois.txt
-            response = {'w':w,'w_server':w_server,'ip':ip,'w_ip':wip}
-        #print("whois server: {}".format(w))
-
-        return response
+            return response
 
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
