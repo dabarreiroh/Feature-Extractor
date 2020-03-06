@@ -13,8 +13,11 @@ class Dom():
 
     @classmethod
     def Url(cls,url):
-        page = requests.get(url)
-        domhtml = html.fromstring(page.content)
+        try:
+            page = requests.get(url)
+            domhtml = html.fromstring(page.content)
+        except:
+            domhtml={"forms":0}
         return cls(domhtml)
 
 """obj=Dom.Url('https://github.com/dabarreiroh/Research-CTAC/blob/master/frame/dom.py')
