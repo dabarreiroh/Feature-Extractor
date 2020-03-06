@@ -41,10 +41,12 @@ class main():
         domain = dom.Dom.Url(self.url)
         urlw = url_parser.URL(self.url)
         wh = whois_query.Whois()
+
         #/////////////////////////////////
         data = wh.whois(dom = urlw.domain)
         certificate = ssl_cert.ssl_certificate(urlw.domain)
         #/////////////////////////////////
+
         url=lambda x : 1 if len(x)>100 else 2
         pathsfun=lambda x :True if x!='NaN' else False
         pathsfil=pathsfun(urlw.path)
@@ -64,14 +66,15 @@ class main():
 
         tlds=lambda x: 1 if x.rsplit('.')[1] in str(tld) else 2 if x.domain.rsplit('.')[1] in str(tld2) else 3 if x.domain.rsplit('.')[1] in str(tld3) else 4
 
-        dicc1 = json.dumps({"url description": {"url_len": url(urlw.url), "domain_len": domains(urlw.domain), "subdomain_len": subdomains(urlw.subdomain),"tld":tlds(urlw.domain),"special_chrtrs_count": pathschar(urlw.path) ,"paths_len": paths(urlw.path) }})
+        dicc1 = {"url description": {"url_len": url(urlw.url), "domain_len": domains(urlw.domain), "subdomain_len": subdomains(urlw.subdomain),"tld":tlds(urlw.domain),"special_chrtrs_count": pathschar(urlw.path) ,"paths_len": paths(urlw.path) }}
         forms = lambda x: 1 if len(x) == 0 else 2
         dicc1.update({'html description': {
             "forms": forms([str(domain.html.forms[i].action) for i in range(0, len(domain.html.forms))])}})
         dicc1.update({"ssl": extract_characteristics.ssl_issuer(certificate) , "whois" : extract_characteristics.whois_characteristics(parse_response.jsonparser(data=data['w'],dict={},keyword='Domain Whois Record')) })
         
+
+        #dicc1 = json.loads(dicc1)
         print(dicc1)
-        dicc1 = json.loads(dicc1)
 
         #dicc1 = parse_response.jsonparser(data=data['w'],dict={},keyword='Domain Whois Record')
 
@@ -84,7 +87,7 @@ class main():
 
         #json_response = json.dumps(dicc1)
         #print(json_response)
-        return dicc1#str(json_response)
+        return dicc1 #str(json_response)
 
 
 

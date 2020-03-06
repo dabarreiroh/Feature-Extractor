@@ -1,1 +1,0 @@
-{"0": {"url description": {"url_len": 2, "domain_len": 2, "subdomain_len": 2, "tld": 1, "special_chrtrs_count": 2, "paths_len": 4}, "html description": {"forms": 1}}, "1": {"url description": {"url_len": 2, "domain_len": 2, "subdomain_len": 2, "tld": 1, "special_chrtrs_count": 2, "paths_len": 2}, "html description": {"forms": 2}}}
