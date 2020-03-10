@@ -19,19 +19,23 @@ def whois_characteristics(dicc = {}):
         4_ bigger than a month
     """
     current_date = dt.datetime.now().date()
-    response  = dicc['Domain Whois Record']
-
-    for keyword in response.keys():
-        if re.search('Creation Date',keyword):
-            delta = current_date - date_parse(response[keyword])
-            return set_whois_state(delta.days)
-        elif re.search('Created',keyword):
-            delta = current_date - date_parse(response[keyword])
-            return set_whois_state(delta.days)
-        else:
-            pass
-    return 1
-
+    
+    try:
+        response  = dicc['Domain Whois Record']
+    except :
+        return 1
+    else:
+        for keyword in response.keys():
+            if re.search('Creation Date',keyword):
+                delta = current_date - date_parse(response[keyword])
+                return set_whois_state(delta.days)
+            elif re.search('Created',keyword):
+                delta = current_date - date_parse(response[keyword])
+                return set_whois_state(delta.days)
+            else:
+                pass
+        return 1
+    
 
 def ssl_issuer (dicc = {}):
     """

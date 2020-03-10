@@ -40,13 +40,26 @@ class URL:
         npaths = self.kwargs["npaths"]
         obj_url = urlparse(self.url)
         # sub = obj_url.hostname.rsplit('.', obj_url.hostname.count('.'))[0:1]
+        
         url_body = obj_url.hostname
-        dom = obj_url.hostname.rsplit('.', obj_url.hostname.count('.'))[-2:]
-        if (len(dom[0]) < 4):
-            dom = obj_url.hostname.rsplit('.', obj_url.hostname.count('.'))[-3:]
-            sub = obj_url.hostname.replace('.'.join(dom), '')
-        dom = '.'.join(dom)
-        sub = obj_url.hostname.replace(dom, '')
+    #//////////////////////////////
+        points = len(re.findall(r"\.",url_body))
+        letters = len(re.findall(r"[a-zA-Z]",url_body)) 
+                
+        if len(re.findall(r"2[0-5][0-5]|1[0-9][0-9]|[0-9][0-9]|[0-9]|[a-zA-Z]",url_body)) >= 4 and points == 3 and letters == 0:
+            
+            dom = url_body
+            sub = ''   
+    #/////////////////////////////////
+        else:
+
+            dom = obj_url.hostname.rsplit('.', obj_url.hostname.count('.'))[-2:]
+            if (len(dom[0]) < 4):
+                dom = obj_url.hostname.rsplit('.', obj_url.hostname.count('.'))[-3:]
+                sub = obj_url.hostname.replace('.'.join(dom), '')
+            dom = '.'.join(dom)
+            sub = obj_url.hostname.replace(dom, '')
+
         paths = obj_url.path.rsplit('/', obj_url.path.count('/'))[1:]
         if npaths == 'default':
             npaths = len(paths)
